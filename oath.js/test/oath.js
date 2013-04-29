@@ -56,4 +56,18 @@ describe('Oath', function(){
     });
   });
 
+  it('chain', function(done) {
+    var asyn = function(value) {
+      var oath = new Oath();
+
+      setTimeout(function() {
+        oath.done(value);
+      }, 200);
+
+      return oath;
+    };
+
+    Oath.chain(asyn("123"), asyn("456"), asyn("789"));
+  });
+
 });
