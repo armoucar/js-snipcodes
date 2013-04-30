@@ -37,7 +37,7 @@ var Oath = (function () {
     } else {
       functions.shift()(result).then(function (res) {
         Oath.chain(functions, res).then(function(r) {
-          oath.done(res);
+          oath.done(r);
         });
       });
     }

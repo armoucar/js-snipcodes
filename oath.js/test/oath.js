@@ -75,7 +75,7 @@ describe('Oath', function(){
         // console.log("b: counter++ :" + counter);
 
         oath.done(newValue);
-      }, 1000);
+      }, 200);
 
       return oath;
     };
@@ -87,13 +87,15 @@ describe('Oath', function(){
         counter++;
         // console.log("a: counter++ :" + counter);
         oath.done("123");
-      }, 1000);
+      }, 200);
 
       return oath;
     };
 
     Oath.chain([f, async, async]).then(function(res) {
+
       assert.equal(3, counter);
+      assert.equal("345", res);
       done();
     });
   });
