@@ -29,9 +29,20 @@ var Oath = (function () {
     this._result = result;
   };
 
-  Oath.chain = function() {
-    var args = Array.prototype.slice.apply(arguments); 
-    console.log(args);
+  Oath.chain = function(functions, result) {
+    var oath = new Oath();
+
+    if (functions.length === 0) {
+      oath.done(result);
+    } else {
+      functions.shift()(result).then(function (res) {
+        Oath.chain(functions, res).then(function(r) {
+          oath.done(res);
+        });
+      });
+    }
+
+    return oath;
   };
 
   return Oath;

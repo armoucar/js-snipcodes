@@ -57,17 +57,45 @@ describe('Oath', function(){
   });
 
   it('chain', function(done) {
-    var asyn = function(value) {
+
+    var counter = 0;
+
+    var async = function(value) {
       var oath = new Oath();
 
       setTimeout(function() {
-        oath.done(value);
-      }, 200);
+        var newValue = "";
+        var i, l;
+        for (i = 0, l = value.length; i < l; i ++) {
+          var v = parseInt(value.charAt(i), 10) + 1;
+          newValue += v;
+        }
+
+        counter++;
+        // console.log("b: counter++ :" + counter);
+
+        oath.done(newValue);
+      }, 1000);
 
       return oath;
     };
 
-    Oath.chain(asyn("123"), asyn("456"), asyn("789"));
+    var f = function() {
+      var oath = new Oath();
+
+      setTimeout(function() {
+        counter++;
+        // console.log("a: counter++ :" + counter);
+        oath.done("123");
+      }, 1000);
+
+      return oath;
+    };
+
+    Oath.chain([f, async, async]).then(function(res) {
+      assert.equal(3, counter);
+      done();
+    });
   });
 
 });
