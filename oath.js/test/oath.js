@@ -72,7 +72,6 @@ describe('Oath', function(){
         }
 
         counter++;
-        // console.log("b: counter++ :" + counter);
 
         oath.done(newValue);
       }, 200);
@@ -85,7 +84,6 @@ describe('Oath', function(){
 
       setTimeout(function() {
         counter++;
-        // console.log("a: counter++ :" + counter);
         oath.done("123");
       }, 200);
 
